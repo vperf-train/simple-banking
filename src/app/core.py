@@ -2,6 +2,9 @@ from .models import Account
 
 accounts = {}
 
+def reset_state():
+    accounts.clear()
+
 def get_account_balance(account_id: str):
     if account_id in accounts:
         return accounts[account_id]

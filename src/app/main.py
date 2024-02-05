@@ -1,8 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
 from .models import Transaction
 from . import core
 
 app = FastAPI()
+
+@app.post("/reset", status_code=status.HTTP_200_OK)
+def reset_state():
+    core.reset_state()  
+    return {"detail": "State reset successfully"}
 
 @app.get("/balance")
 def get_balance(account_id: str):
