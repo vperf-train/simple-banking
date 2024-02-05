@@ -45,9 +45,9 @@ def test_withdraw_from_existing_account():
 
 def test_transfer_from_existing_account():
     test_deposit_into_existing_account()  
-    response = requests.post(f"{BASE_URL}/event", json={"type": "transfer", "origin": "100", "amount": 10, "destination": "300"})
+    response = requests.post(f"{BASE_URL}/event", json={"type": "transfer", "origin": "100", "amount": 15, "destination": "300"})
     assert response.status_code == 201
-    assert response.json() == {"origin": {"id": "100", "balance": 0}, "destination": {"id": "300", "balance": 10}}
+    assert response.json() == {"origin": {"id": "100", "balance": 5}, "destination": {"id": "300", "balance": 15}}
 
 def test_transfer_from_non_existing_account():
     reset_state()

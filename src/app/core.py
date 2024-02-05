@@ -23,8 +23,16 @@ def withdraw_from_account(account_id: str, amount: int):
     accounts[account_id].balance -= amount
     return accounts[account_id]
 
-def transfer_between_accounts(origin_id: str, destination_id: str, amount: int):
-    if origin_id not in accounts or accounts[origin_id].balance < amount:
-        return None, None
-    accounts[origin_id].balance -= amount
-    return withdraw_from_account(origin_id, amount), create_or_update_account(destination_id, amount)
+def transfer_between_accounts(origin: str, destination: str, amount: int):
+    if origin not in accounts or accounts[origin].balance < amount:
+        return None, None  
+    
+    accounts[origin].balance -= amount
+    
+    if destination not in accounts:
+        accounts[destination] = Account(id=destination, balance=0)  # create account with 0 balance if destination doesn't exist
+    
+    accounts[destination].balance += amount
+    
+    return accounts[origin], accounts[destination]
+
