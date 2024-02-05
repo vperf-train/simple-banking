@@ -1,4 +1,4 @@
-from models import Account, Transaction
+from models import Account
 
 accounts = {}
 
